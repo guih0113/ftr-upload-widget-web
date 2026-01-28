@@ -40,6 +40,9 @@
         "useImportType": "off",
         "noNonNullAssertion": "off"
       },
+      "a11y": {
+        "noSvgWithoutTitle": "off"
+      },
       "recommended": true
     }
   },
