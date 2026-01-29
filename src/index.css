@@ -7,6 +7,7 @@
   --shadow-shape-content: '0px 0px 0px 1px rgba(0, 0, 0, 0.25), inset 0px 1px 0px rgba(255, 255, 255, 0.02), inset 0px 0px 0px 1px rgba(255, 255, 255, 0.02)',
   --opacity-2: 0.02;
   --text-xxs: 0.625rem;
+  --animate-border: border 2s linear infinite;
 }
 
 @layer components {
@@ -16,9 +17,20 @@
     @apply disabled:opacity-50 disabled:pointer-events-none;
   }
 
-  /* Variantes de tamanho */
   .btn-default { @apply px-3 py-2; }
   .btn-icon { @apply p-2; }
   .btn-icon-sm { @apply p-1; }
+}
+
+@keyframes border {
+  to {
+    --border-angle: 360deg;
+  }
+}
+
+@property --border-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
 }
 
