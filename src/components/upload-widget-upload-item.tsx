@@ -13,6 +13,11 @@ interface UploadWidgetUploadItemProps {
 export function UploadWidgetUploadItem({ uploadId, upload }: UploadWidgetUploadItemProps) {
   const cancelUpload = useUploads((store) => store.cancelUpload)
 
+  const progress = Math.min(
+    Math.round((upload.uploadSizeInBytes * 100) / upload.originalSizeInBytes),
+    100
+  )
+
   return (
     <motion.div
       className="relative flex flex-col gap-3 overflow-hidden rounded-lg bg-white/2 p-3 shadow-shape-content"
@@ -27,7 +32,7 @@ export function UploadWidgetUploadItem({ uploadId, upload }: UploadWidgetUploadI
         </span>
 
         <span className="flex items-center gap-1.5 text-xxs text-zinc-400">
-          <span className="line-through">{formatBytes(upload.file.size)}</span>
+          <span className="line-through">{formatBytes(upload.originalSizeInBytes)}</span>
           <div className="size-1 rounded-full bg-zinc-700"></div>
           <span>
             300KB
@@ -35,19 +40,20 @@ export function UploadWidgetUploadItem({ uploadId, upload }: UploadWidgetUploadI
           </span>
           <div className="size-1 rounded-full bg-zinc-700"></div>
           {upload.status === 'success' && <span>100%</span>}
-          {upload.status === 'progress' && <span>45%</span>}
+          {upload.status === 'progress' && <span>{progress}%</span>}
           {upload.status === 'error' && <span className="text-red-400">Error</span>}
           {upload.status === 'canceled' && <span className="text-yellow-400">Canceled</span>}
         </span>
       </div>
 
       <Progress.Root
+        value={progress}
         data-status={upload.status}
         className="group h-1 overflow-hidden rounded-full bg-zinc-800"
       >
         <Progress.Indicator
-          className="h-1 bg-indigo-500 group-data-[status=canceled]:bg-yellow-400 group-data-[status=error]:bg-red-400 group-data-[status=success]:bg-green-400"
-          style={{ width: upload.status === 'progress' ? '45%' : '100%' }}
+          className="h-1 bg-indigo-500 transition-all group-data-[status=canceled]:bg-yellow-400 group-data-[status=error]:bg-red-400 group-data-[status=success]:bg-green-400"
+          style={{ width: upload.status === 'progress' ? `${progress}%` : '100%' }}
         />
       </Progress.Root>
 

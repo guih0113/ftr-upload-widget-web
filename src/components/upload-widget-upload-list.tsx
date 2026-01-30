@@ -9,7 +9,7 @@ export function UploadWidgetUploadList() {
     <div className="flex flex-col gap-3 px-3">
       <span className="font-medium text-xs">
         Uploaded Files{'  '}
-        <span className="text-zinc-400">(2)</span>
+        <span className="text-zinc-400">({uploads.size})</span>
       </span>
 
       {isUploadListEmpty ? (
