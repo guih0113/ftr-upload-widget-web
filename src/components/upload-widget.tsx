@@ -1,10 +1,10 @@
 import * as Collapsible from '@radix-ui/react-collapsible'
 import { motion, useCycle } from 'motion/react'
+import { usePendingUploads } from '../store/uploads'
 import { UploadWidgetDropzone } from './upload-widget-dropzone'
 import { UploadWidgetHeader } from './upload-widget-header'
 import { UploadWidgetMinimizedButton } from './upload-widget-minimized-button'
 import { UploadWidgetUploadList } from './upload-widget-upload-list'
-import { usePendingUploads } from '../store/uploads'
 
 export function UploadWidget() {
   const { isThereAnyPendingUploads } = usePendingUploads()

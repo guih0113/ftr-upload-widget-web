@@ -1,6 +1,7 @@
 import * as Progress from '@radix-ui/react-progress'
 import { Download, ImageUp, Link2, RefreshCcw, X } from 'lucide-react'
 import { motion } from 'motion/react'
+import { toast } from 'sonner'
 import { type Upload, useUploads } from '../store/uploads'
 import { downloadUrl } from '../utils/download-url'
 import { formatBytes } from '../utils/format-bytes'
@@ -77,6 +78,7 @@ export function UploadWidgetUploadItem({ uploadId, upload }: UploadWidgetUploadI
           onClick={() => {
             if (upload.remoteUrl) {
               downloadUrl(upload.remoteUrl)
+              toast.success('Successfully downloaded the compressed image.')
             }
           }}
         >
@@ -87,7 +89,10 @@ export function UploadWidgetUploadItem({ uploadId, upload }: UploadWidgetUploadI
         <Button
           disabled={!upload.remoteUrl}
           size="icon-sm"
-          onClick={() => upload.remoteUrl && navigator.clipboard.writeText(upload.remoteUrl)}
+          onClick={() => {
+            upload.remoteUrl && navigator.clipboard.writeText(upload.remoteUrl)
+            toast.success('Copied remote URL to clipboard')
+          }}
         >
           <Link2 strokeWidth={1.5} className="size-4" />
           <span className="sr-only">Copy remote URL</span>

@@ -5,6 +5,7 @@ import { immer } from 'zustand/middleware/immer'
 import { useShallow } from 'zustand/shallow'
 import { uploadFileToStorage } from '../http/upload-file-to-storage'
 import { compressImage } from '../utils/compress-image'
+import { toast } from 'sonner'
 
 export type Upload = {
   name: string
@@ -78,14 +79,17 @@ export const useUploads = create<UploadState, [['zustand/immer', never]]>(
         )
 
         updateUpload(uploadId, { status: 'success', remoteUrl: url })
+        toast.success('Upload success')
       } catch (err) {
         if (err instanceof CanceledError) {
           updateUpload(uploadId, { status: 'canceled' })
+          toast.warning('Upload canceled')
 
           return
         }
 
         updateUpload(uploadId, { status: 'error' })
+        toast.error('Upload failed')
       }
     }
 
