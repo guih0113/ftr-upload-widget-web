@@ -17,7 +17,7 @@ export async function uploadFileToStorage(
 
   data.append('file', file)
 
-  const response = await axios.post<{ url: string }>('http://localhost:3333/uploads', data, {
+  const response = await axios.post<{ url: string }>('https://ftr-upload-widget-server.vercel.app/uploads', data, {
     headers: {
       'Content-Type': 'multipart/form-data'
     },
